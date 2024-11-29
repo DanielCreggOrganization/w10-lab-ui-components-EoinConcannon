@@ -1,0 +1,28 @@
+.horizontal-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  
+    img {
+      width: 150px;
+      height: auto;
+      margin-right: 16px;
+    }
+  
+    ion-card-header {
+      flex: 1;
+    }
+  
+    ion-card-content {
+      flex: 2;
+    }
+  
+    ion-button {
+      margin: 8px 0;
+    }
+  
+    &:hover {
+      transform: scale(1.05);
+      transition: transform 0.3s ease-in-out;
+    }
+  }
