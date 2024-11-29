@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonModal, IonButtons, IonItem, IonLabel, IonInput } from '@ionic/angular/standalone';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
-import { createAnimation } from '@ionic/angular';
+import { createAnimation, AnimationController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab3',
@@ -23,28 +23,54 @@ import { createAnimation } from '@ionic/angular';
   ],
 })
 export class Tab3Page {
-  constructor() {}
+  @ViewChild(IonModal)
+  modal!: IonModal;
 
-  enterAnimation(baseEl: any) {
-    const backdropAnimation = createAnimation()
-      .addElement(baseEl.querySelector('ion-backdrop')!)
-      .fromTo('opacity', '0.01', 'var(--backdrop-opacity)');
+  constructor(private animationCtrl: AnimationController) {}
 
-    const wrapperAnimation = createAnimation()
-      .addElement(baseEl.querySelector('.modal-wrapper')!)
-      .keyframes([
-        { offset: 0, opacity: '0', transform: 'translateY(100%)' },
-        { offset: 1, opacity: '0.99', transform: 'translateY(0)' }
-      ]);
+  ionViewDidEnter() {
+    const enterAnimation = (baseEl: HTMLElement) => {
+      const backdropAnimation = this.animationCtrl
+        .create()
+        .addElement(baseEl.querySelector('ion-backdrop')!)
+        .fromTo('opacity', '0.01', 'var(--backdrop-opacity)');
 
-    return createAnimation()
-      .addElement(baseEl)
-      .easing('ease-out')
-      .duration(500)
-      .addAnimation([backdropAnimation, wrapperAnimation]);
+      const wrapperAnimation = this.animationCtrl
+        .create()
+        .addElement(baseEl.querySelector('.modal-wrapper')!)
+        .fromTo('transform', 'translateY(100%)', 'translateY(0%)');
+
+      return this.animationCtrl
+        .create()
+        .addElement(baseEl)
+        .easing('ease-out')
+        .duration(500)
+        .addAnimation([backdropAnimation, wrapperAnimation]);
+    };
+
+    const leaveAnimation = (baseEl: HTMLElement) => {
+      return this.animationCtrl
+        .create()
+        .addElement(baseEl)
+        .easing('ease-in')
+        .duration(500)
+        .addAnimation([
+          this.animationCtrl
+            .create()
+            .addElement(baseEl.querySelector('ion-backdrop')!)
+            .fromTo('opacity', 'var(--backdrop-opacity)', '0.01'),
+          this.animationCtrl
+            .create()
+            .addElement(baseEl.querySelector('.modal-wrapper')!)
+            .fromTo('transform', 'translateY(0%)', 'translateY(100%)')
+        ]);
+    };
+
+    this.modal.enterAnimation = enterAnimation;
+    this.modal.leaveAnimation = leaveAnimation;
   }
 
-  leaveAnimation(baseEl: any) {
-    return this.enterAnimation(baseEl).direction('reverse');
+  closeModal() {
+    this.modal.dismiss();
   }
 }

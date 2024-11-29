@@ -3,13 +3,13 @@
     Open Modal
   </ion-button>
 
-  <ion-modal trigger="open-modal">
+  <ion-modal #modal trigger="open-modal" class="half-sheet-modal">
     <ng-template>
       <ion-header>
         <ion-toolbar>
           <ion-title>Contact Form</ion-title>
           <ion-buttons slot="end">
-            <ion-button onclick="modal.dismiss()">Close</ion-button>
+            <ion-button (click)="closeModal()">Close</ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
