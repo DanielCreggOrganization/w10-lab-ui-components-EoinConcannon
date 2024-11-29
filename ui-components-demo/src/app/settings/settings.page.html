@@ -71,4 +71,14 @@
     <ion-label>Removable Chip</ion-label>
     <ion-icon name="close-circle" (click)="removeChip($event)"></ion-icon>
   </ion-chip>
+
+  <ion-item>
+    <ion-label>Date and Time</ion-label>
+    <ion-datetime display-format="MM/DD/YYYY HH:mm" (ionChange)="onDateTimeChange($event)"></ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Selected Date and Time</ion-label>
+    <ion-text>{{ selectedDateTime }}</ion-text>
+  </ion-item>
 </ion-content>

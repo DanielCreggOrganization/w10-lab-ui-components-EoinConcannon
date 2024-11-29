@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonChip, IonLabel, IonIcon } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonChip, IonLabel, IonIcon, IonDatetime, IonItem, IonText } from '@ionic/angular/standalone';
 import { AlertController, ToastController } from '@ionic/angular/standalone';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import { createAnimation } from '@ionic/angular';
@@ -18,10 +18,15 @@ import { createAnimation } from '@ionic/angular';
     IonChip,
     IonLabel,
     IonIcon,
+    IonDatetime,
+    IonItem,
+    IonText,
     ExploreContainerComponent
   ],
 })
 export class SettingsPage {
+  selectedDateTime: string = '';
+
   constructor(
     private alertController: AlertController,
     private toastController: ToastController
@@ -118,5 +123,10 @@ export class SettingsPage {
     if (chip) {
       chip.remove();
     }
+  }
+
+  onDateTimeChange(event: any) {
+    this.selectedDateTime = event.detail.value;
+    console.log('Selected Date and Time:', this.selectedDateTime);
   }
 }
