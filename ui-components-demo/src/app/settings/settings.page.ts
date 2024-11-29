@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonChip, IonLabel, IonIcon } from '@ionic/angular/standalone';
 import { AlertController, ToastController } from '@ionic/angular/standalone';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import { createAnimation } from '@ionic/angular';
@@ -15,6 +15,9 @@ import { createAnimation } from '@ionic/angular';
     IonTitle,
     IonContent,
     IonButton,
+    IonChip,
+    IonLabel,
+    IonIcon,
     ExploreContainerComponent
   ],
 })
@@ -108,5 +111,12 @@ export class SettingsPage {
       leaveAnimation: customLeaveAnimation
     });
     await toast.present();
+  }
+
+  removeChip(event: Event) {
+    const chip = (event.target as HTMLElement).closest('ion-chip');
+    if (chip) {
+      chip.remove();
+    }
   }
 }
