@@ -1,19 +1,19 @@
-import { Component, EnvironmentInjector, inject } from '@angular/core';
-import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel } from '@ionic/angular/standalone';
+import { Component } from '@angular/core';
+import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, IonBadge } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { triangle, ellipse, square } from 'ionicons/icons';
+import { home, person, notifications } from 'ionicons/icons';
 
 @Component({
   selector: 'app-tabs',
   templateUrl: 'tabs.page.html',
   styleUrls: ['tabs.page.scss'],
   standalone: true,
-  imports: [IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel],
+  imports: [IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, IonBadge], // Added IonBadge to imports
 })
 export class TabsPage {
-  public environmentInjector = inject(EnvironmentInjector);
-
+  notificationCount = 3; // This will be displayed in the badge
+  
   constructor() {
-    addIcons({ triangle, ellipse, square });
+    addIcons({ home, person, notifications });
   }
 }
